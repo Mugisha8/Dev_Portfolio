@@ -1,9 +1,69 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap");
 
 * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
 
-body{
-    background-color: #E5E5E5;
+html {
+  scroll-behavior: smooth;
+  /*------ storing color variables*/
+
+  --primary-color: #e5e5e5;
+  --secondary-color: #343d68;
+  --secondary-color-hover: #343d68ad;
+  --tertiary-color: #e84949;
 }
+body {
+  background-color: var(--primary-color);
+}
+
+/*------------- Navbar section Start -------------*/
+
+#navbar {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1% 3%;
+}
+.menus ul {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+}
+.menus ul li:hover {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  color: var(--secondary-color);
+  font-weight: 600;
+  transition: 0.5s;
+}
+
+.menus button {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 0;
+}
+.menus button:hover {
+  background-color: var(--secondary-color-hover);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+/*------------- Hero section Start -------------*/
+
+
