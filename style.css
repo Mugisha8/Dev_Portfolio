@@ -246,3 +246,38 @@ span i {
 .Project-Card-text {
   width: 100%;
 }
+
+/*------------- Blogs section Start -------------*/
+
+#blogs h2 {
+  text-align: center;
+  padding: 4% 0px;
+}
+
+.BlogsContainer {
+  background-color: white;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 70px;
+  column-gap: 30px;
+}
+.BlogsContainer img {
+  width: 100%;
+  height: 300px;
+}
+.BlogsContainer p {
+  margin-top: 4%;
+  text-align: center;
+  width: 100%;
+}
+
+/*------------- Contact section Start -------------*/
+
+/*------------- Footer section Start -------------*/
+#footer {
+  background-color: var(--secondary-color);
+  color: white;
+}
+#footer p {
+  text-align: center;
+}
