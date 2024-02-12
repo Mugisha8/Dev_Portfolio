@@ -5,6 +5,8 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  color: inherit;
+  text-decoration: none;
 }
 
 html {
@@ -15,6 +17,7 @@ html {
   --secondary-color: #343d68;
   --secondary-color-hover: #343d68ad;
   --tertiary-color: #e84949;
+  --tex-color: #818080;
 }
 body {
   background-color: var(--primary-color);
@@ -28,6 +31,9 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1% 5%;
+  position: fixed;
+  width: 100%;
+  top: 0;
 }
 .menus ul {
   display: flex;
@@ -36,6 +42,7 @@ body {
   gap: 20px;
   cursor: pointer;
 }
+
 .menus ul li:hover {
   display: flex;
   list-style: none;
@@ -66,10 +73,11 @@ body {
 
 /*------------- Hero section Start -------------*/
 #heroPage {
-  margin: 2% 5%;
+  margin: 0% 5%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 100vh;
 }
 
 .heroText {
@@ -100,3 +108,51 @@ h4 {
   cursor: pointer;
   transition: 0.4s;
 }
+
+/*------------- Experience section Start -------------*/
+
+#experience {
+  margin: 0% 5%;
+}
+#experience h2 {
+  text-align: center;
+  color: var(--secondary-color);
+}
+.ExperienceContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 13%;
+  align-items: center;
+}
+.ExperienceContainer p {
+  color: var(--tex-color);
+  width: 550px;
+}
+
+.ExperienceContainer .secondParagraph {
+  margin-top: 20px;
+}
+
+.iconsWrapper {
+  background-color: var(--secondary-color);
+  color: white;
+  border-radius: 50%;
+  padding: 20px;
+}
+span i {
+  font-size: 1.5rem;
+}
+
+.Statistics-Item-Container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.ExperienceStatistics {
+  display: flex;
+  justify-content: center;
+  gap: 10%;
+}
+
+
