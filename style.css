@@ -82,7 +82,7 @@ body {
 }
 .heroProfile {
   width: 430px;
-  height: 420px;
+  height: 440px;
 }
 .heroProfile img {
   width: 100%;
@@ -223,7 +223,7 @@ span i {
   background-color: var(--secondary-color);
   display: flex;
   flex-wrap: wrap;
-  gap: 5%;
+  gap: 25px;
   padding: 4% 5%;
 }
 
@@ -328,6 +328,7 @@ span i {
 #Contact {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   column-gap: 12%;
   align-items: center;
 }
@@ -390,6 +391,7 @@ span i {
   display: flex;
   padding: 2% 0%;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 .address {
   display: flex;
@@ -425,3 +427,4 @@ span i {
 .socialLinks .SocialIcons span:hover {
   color: white;
 }
+
