@@ -313,26 +313,26 @@ span i {
   margin-bottom: 10px;
 }
 
-form input {
+.ContactForm form input {
   width: 400px;
   padding: 10px;
   border: 0;
   box-shadow: 0px 0px 3px 0px rgb(165, 164, 164);
 }
-form textarea {
+.ContactForm form textarea {
   height: 7rem;
   padding: 10px;
   border: 0;
   box-shadow: 0px 0px 3px 0px rgb(165, 164, 164);
 }
 
-form button {
+.ContactForm form button {
   padding: 10px;
   background-color: var(--secondary-color);
   border: 0;
   color: white;
 }
-form button:hover {
+.ContactForm form button:hover {
   padding: 10px;
   background-color: var(--secondary-color-hover);
   border: 0;
