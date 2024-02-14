@@ -4,8 +4,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MUGISHA Portfolio</title>
     <link rel="stylesheet" href="style.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="script.js"></script>
   </head>
   <body>
-    
+    <section id="navbar">
+      <h2><a href="#heroPage">MUGISHA</a></h2>
+      <div class="menus">
+        <ul>
+        <li><a href="#heroPage">Home</a></li>
+        <li><a href="#experience">About Me</a></li>
+        <li><a href="#ExperienceStatistics">Resume</a></li>
+        <li><a href="#MyProjects">Portfolio</a></li>
+        <li><a href="#blogs">Blogs</a></li>
+        <li><a href="#Contact">Contact</a></li>
+        <button><a href="signIn.html">SIGN IN</a></button>
+        <ul>
+      </div>
+    </section>
+
+    <section id="heroPage">
+      <div class="heroText">
+        <h4>Hi👋, I’m MUGISHA Yves a</h4>
+         <h2> software developer</h2>
+          <p>I’m <b>Mugisha Yves</b>, a developer dedicated to making the world a better place one line of code at a time.</p>
+          <button>Hire me</button>
+      </div>
+      <div class="heroProfile">
+        <img src="images/profile.png">
+      </div>
+
+    </section>
+  <section id="experience">
+    <h2>Experience</h2>
+
+    <div class="ExperienceContainer">
+      <div class="experienceText">
+        <p>I am an experienced software developer specializing in JavaScript, Node.js, React, API development, and cloud technologies.</p>
+
+        <p class="secondParagraph">With a strong background in both frontend and backend technologies, I excel in crafting efficient and scalable web applications. My expertise in cloud services allows me to design and deploy robust solutions.</p>
+      </div>
+      <div class="experienceICON">
+        <img src="images/stack.png">
+      </div>
+    </div>
+
+    <div id="ExperienceStatistics">
+
+      <div class="Statistics-Item-Container">
+        <span class="iconsWrapper">
+          <i class="fa-solid fa-briefcase"></i>
+         
+        </span>
+        <div>
+          <h4>3+ years</h4>
+            <p>Experience</p>
+          </div>
+      </div>
+
+      <div class="Statistics-Item-Container">
+        <span class="iconsWrapper">
+          <i class="fa-solid fa-code"></i>
+         
+        </span>
+        <div>
+          <h4>30+ Projects</h4>
+            <p>Completed</p>
+          </div>
+      </div>
+
+      <div class="Statistics-Item-Container">
+        <span class="iconsWrapper">
+          <i class="fa-solid fa-users"></i>
+         
+        </span>
+        <div>
+          <h4>200+ Customers</h4>
+            <p>Satisfied</p>
+          </div>
+      </div>
+
+      
+    </div>
+
+
+  </section>
+
+  <section id="resume">
+    <p>If you're interested in learning more about my skills, experience, and projects, feel free to download my resume</p>
+
+    <div class="DownloadButton"><button><span><i class="fa-solid fa-download"></i></span>Download my Resume</button></div>
+  </section>
+
+  <section id="MyProjects">
+ <h2>My Projects</h2>
+
+    <div class="ProjectsContainer">
+
+      <div class="Project-Card-Wrapper">
+        <img src="images/straw.png">
+        <div class="Project-Card-text">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum repellat voluptatem, debitis expedita asperiores ipsa magni illo corporis ut nisi accusantium </p>
+          <div class="ProjectViewButton"><button>Learn More -></button></div>
+        </div>
+      </div>
+
+      <div class="Project-Card-Wrapper">
+        <img src="images/irish.jpg">
+        <div class="Project-Card-text">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum repellat voluptatem, debitis expedita asperiores ipsa magni illo corporis ut nisi accusantium </p>
+          <div class="ProjectViewButton"><button>Learn More -></button></div>
+        </div>
+      </div>
+
+      <div class="Project-Card-Wrapper">
+        <img src="images/bk.png">
+        <div class="Project-Card-text">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum repellat voluptatem, debitis expedita asperiores ipsa magni illo corporis ut nisi accusantium </p>
+          <div class="ProjectViewButton"><button>Learn More -></button></div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="blogs">
+    <h2>Blogs</h2>
+
+    <div class="BlogsContainer">
+      <div class="blog-card">
+        <img src="images/bk.png">
+        <h3>Technology advancement</h3>
+        <p>Technology advances by keeping an eye on the new app designed my meight industries.</p>
+        <h4>Views : 200</h4>
+      </div>
+
+      <div class="blog-card">
+        <img src="images/irish.jpg">
+        <h3>Technology advancement</h3>
+        <p>Technology advances by keeping an eye on the new app designed my meight industries.</p>
+        <h4>Views : 130</h4>
+
+      </div>
+
+      <div class="blog-card">
+        <img src="images/straw.png">
+        <h3>Technology advancement</h3>
+        <p>Technology advances by keeping an eye on the new app designed my meight industries.</p>
+        <h4>Views : 450</h4>
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+<section id="Contact">
+
+  <div class="ContactVector">
+    <img src="images/contact.png">
+  </div>
+  <div class="ContactForm">
+    <h2>Contact Me</h2>
+    <form>
+      <input type="text" placeholder="Enter Email address" >
+      <textarea placeholder="Enter Message"></textarea>
+      <button>Send Message</button>
+      </form>
+  </div>
+
+</section>
+
+
+<section id="footer">
+  <div class="Footer-Text-Info">
+    <div class="socialLinks">
+      <h3>My Social Links</h3>
+      <div class="SocialIcons">
+        <span><i class="fa-brands fa-facebook"></i></span>
+        <span><i class="fa-brands fa-instagram"></i></span>
+        <span><i class="fa-brands fa-linkedin"></i></span>
+      </div>
+    </div>
+    <div class="Address">
+      <h3>Keep In Touch</h3>
+      <p><span><i class="fa-brands fa-github"></i></span>@Mugisha8 on github</p>
+      <p><span><i class="fa-solid fa-envelope"></i></span>yvesmugisha8@gmail.com</p>
+      <p><span><i class="fa-solid fa-location-dot"></i></span>KIGALI - RWANDA</p>
+      <p><span><i class="fa-solid fa-phone-volume"></i></span>+250 780093722</p>
+    </div>
+  </div>
+
+ <p> &copy Mugisha Yves 2024 </p>
+</section>
+
+
+
+
+
   </body>
 </html>
