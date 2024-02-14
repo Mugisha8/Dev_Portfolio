@@ -83,6 +83,7 @@ body {
 .heroProfile {
   width: 430px;
   height: 440px;
+  height: 440px;
 }
 .heroProfile img {
   width: 100%;
@@ -223,7 +224,7 @@ span i {
   background-color: var(--secondary-color);
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 5%;
   padding: 4% 5%;
 }
 
@@ -565,3 +566,4 @@ span i {
     margin-top: 5%;
   }
 }
+
