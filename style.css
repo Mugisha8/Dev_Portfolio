@@ -223,7 +223,7 @@ span i {
   background-color: var(--secondary-color);
   display: flex;
   flex-wrap: wrap;
-  gap: 25px;
+  gap: 30px;
   padding: 4% 5%;
 }
 
@@ -232,7 +232,7 @@ span i {
   border-image: linear-gradient(to right, rgb(23, 23, 186), skyblue) 1;
 }
 .Project-Card-Wrapper {
-  width: 358px;
+  width: 378px;
   height: 30rem;
 }
 
@@ -331,6 +331,7 @@ span i {
   flex-wrap: wrap;
   column-gap: 12%;
   align-items: center;
+  margin: 5% 0%;
 }
 
 .ContactVector {
@@ -347,6 +348,7 @@ span i {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 400px;
 }
 .ContactForm h2 {
   color: var(--secondary-color);
@@ -354,7 +356,6 @@ span i {
 }
 
 .ContactForm form input {
-  width: 400px;
   padding: 10px;
   border: 0;
   box-shadow: 0px 0px 3px 0px rgb(165, 164, 164);
@@ -428,3 +429,139 @@ span i {
   color: white;
 }
 
+/********************** SIGN IN **************************/
+
+.Interface {
+  background-color: var(--secondary-color);
+}
+
+#LoginForm {
+  background-color: white;
+  margin: 13% 32%;
+  width: 500px;
+  height: 18rem;
+  border-radius: 6px;
+}
+
+#LoginForm h3 {
+  padding-top: 3%;
+  text-align: center;
+}
+#LoginForm p {
+  text-align: center;
+}
+
+#LoginForm span {
+  color: var(--secondary-color);
+  font-weight: 600;
+}
+
+#LoginForm form {
+  display: flex;
+  flex-direction: column;
+  margin: 6% 10%;
+  gap: 10px;
+}
+
+#LoginForm form input {
+  width: 400px;
+  padding: 10px;
+  border: 0;
+  box-shadow: 0px 0px 3px 0px rgb(165, 164, 164);
+}
+
+#LoginForm form button {
+  padding: 10px;
+  background-color: var(--secondary-color);
+  border: 0;
+  color: white;
+}
+#LoginForm form button:hover {
+  padding: 10px;
+  background-color: var(--secondary-color-hover);
+  border: 0;
+  color: white;
+  cursor: pointer;
+  transition: 0.6s;
+}
+
+/********************** SIGN UP **************************/
+
+.Interface {
+  background-color: var(--secondary-color);
+}
+
+#RegisterForm {
+  background-color: white;
+  margin: 11% 32%;
+  width: 500px;
+  height: 24rem;
+  border-radius: 6px;
+}
+
+#RegisterForm h3 {
+  padding-top: 3%;
+  text-align: center;
+}
+#RegisterForm p {
+  text-align: center;
+}
+
+#RegisterForm span {
+  color: var(--secondary-color);
+  font-weight: 600;
+}
+
+#RegisterForm form {
+  display: flex;
+  flex-direction: column;
+  margin: 6% 10%;
+  gap: 10px;
+}
+
+#RegisterForm form input {
+  width: 400px;
+  padding: 10px;
+  border: 0;
+  box-shadow: 0px 0px 3px 0px rgb(165, 164, 164);
+}
+
+#RegisterForm form button {
+  padding: 10px;
+  background-color: var(--secondary-color);
+  border: 0;
+  color: white;
+}
+#RegisterForm form button:hover {
+  padding: 10px;
+  background-color: var(--secondary-color-hover);
+  border: 0;
+  color: white;
+  cursor: pointer;
+  transition: 0.6s;
+}
+
+/********************* Media Queries *********************/
+
+@media screen and (max-width: 450px) {
+  #heroPage {
+    margin-top: 25%;
+    flex-wrap: wrap;
+  }
+  .ExperienceContainer {
+    flex-wrap: wrap;
+  }
+  .ContactForm form {
+    padding: 15px;
+  }
+  .ContactForm h2 {
+    padding: 15px;
+  }
+
+  .copyright p {
+    margin-top: 20px;
+  }
+  .Address {
+    margin-top: 5%;
+  }
+}
