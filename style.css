@@ -561,6 +561,113 @@ span i {
   transition: 0.6s;
 }
 
+/********************* Single Blog *********************/
+
+#blogContent {
+  margin: 7% 20%;
+}
+
+.blog-context-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.blogImage img {
+  width: 100%;
+}
+
+.blogText p {
+  display: flex;
+  flex-direction: column;
+  color: rgba(220, 218, 218, 0.869);
+}
+.blogText h3 {
+  color: white;
+  text-align: center;
+  padding: 3% 0px;
+}
+
+.blogText button {
+  margin-top: 10px;
+  padding: 5px 15px;
+  cursor: pointer;
+  border-radius: 3px;
+  border: 0;
+}
+.blogText button:hover {
+  margin-top: 10px;
+  padding: 5px 15px;
+  cursor: pointer;
+  border-radius: 3px;
+  border: 0;
+  transition: 0.7s;
+  background-color: var(--tertiary-color);
+  color: white;
+}
+
+.blog-comment-container p {
+  padding-top: 5%;
+  color: white;
+}
+.blog-analytics {
+  display: flex;
+  margin-top: 10px;
+  align-items: center;
+  gap: 5%;
+}
+.blog-analytics span {
+  color: white;
+  font-weight: 600;
+}
+.blog-form {
+  /* background-color: red; */
+  display: flex;
+  margin-top: 10px;
+}
+.blog-form form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.blog-input-box input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  border-radius: 4px;
+  border: 0;
+  background-color: #f8f7f9;
+}
+
+.blog-input-group {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+}
+.blog-input-group .blog-input-box {
+  width: 100%;
+}
+.blog-form button {
+  background-color: var(--tertiary-color);
+  padding: 10px;
+  outline: none;
+  border-radius: 4px;
+  border: 0;
+  font-weight: 600;
+}
+.blog-form button:hover {
+  background-color: #e8494986;
+  padding: 10px;
+  outline: none;
+  border-radius: 4px;
+  border: 0;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.6s;
+}
+
 /********************* Media Queries *********************/
 
 @media screen and (max-width: 450px) {
@@ -602,5 +709,11 @@ span i {
   }
   .Address {
     margin-top: 5%;
+  }
+  #blogContent {
+    margin: 20% 8%;
+  }
+  .blog-input-group {
+    flex-wrap: wrap;
   }
 }
