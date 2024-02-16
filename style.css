@@ -298,10 +298,12 @@ span i {
 .BlogsContainer {
   background-color: white;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap;  
   padding: 4% 5%;
   gap: 30px;
   justify-content: center;
+  overflow-x: auto;
+  scroll-behavior: smooth;
 }
 
 .blog-card {
@@ -346,6 +348,22 @@ span i {
 .blog-card {
   box-shadow: 0px 0px 3px 0px rgba(65, 63, 63, 0.517);
 }
+
+.pre-btn,
+.nxt-btn {
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  cursor: pointer;
+  z-index: 8;
+}
+.pre-btn {
+  left: 0;
+  transform: rotate(180deg);
+}
+
 /*------------- Contact section Start -------------*/
 
 #Contact {
@@ -366,19 +384,24 @@ span i {
   width: 100%;
   height: 100%;
 }
-
+.ContactForm {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
 .ContactForm form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  width: 400px;
+  gap: 10px;
 }
+
 .ContactForm h2 {
   color: var(--secondary-color);
   margin-bottom: 10px;
 }
 
 .ContactForm form input {
+  width: 100%;
   padding: 10px;
   border: 0;
   box-shadow: 0px 0px 3px 0px rgb(165, 164, 164);
@@ -387,6 +410,7 @@ span i {
   height: 7rem;
   padding: 10px;
   border: 0;
+  background-color: white;
   box-shadow: 0px 0px 3px 0px rgb(165, 164, 164);
 }
 
@@ -470,7 +494,7 @@ span i {
 }
 
 #LoginForm h3 {
-  padding-top: 3%;
+  padding-top: 4%;
   text-align: center;
 }
 #LoginForm p {
@@ -614,13 +638,22 @@ span i {
 }
 .blog-analytics {
   display: flex;
-  margin-top: 10px;
+  flex-wrap: wrap;
+  margin-top: 15px;
   align-items: center;
   gap: 5%;
+  row-gap: 20px;
 }
 .blog-analytics span {
   color: white;
-  font-weight: 600;
+  font-weight: 500;
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+}
+.blog-analytics span:hover {
+  cursor: pointer;
+  color: #ef575794;
 }
 .blog-form {
   display: flex;
@@ -669,6 +702,29 @@ textarea {
   transition: 0.6s;
 }
 
+.customer-comments {
+  display: flex;
+  column-gap: 10px;
+  align-items: center;
+  margin-top: 5%;
+}
+
+.commentInfo span {
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.commentInfo p {
+  margin-top: 10px;
+}
+
+.customer-comments img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
 /********************* Media Queries *********************/
 
 @media screen and (max-width: 920px) {
@@ -713,10 +769,34 @@ textarea {
 
 @media screen and (max-width: 450px) {
   #heroPage {
-    margin-top: 25%;
-    flex-wrap: wrap;
+    flex-direction: column-reverse;
+  }
+  #heroPage {
+    margin: 16% 15%;
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    column-gap: 30%;
+  }
+  .heroText {
+    padding: 5% 20%;
+    width: 450px;
   }
 
+  #LoginForm h3 {
+    padding-top: 6%;
+    text-align: center;
+  }
+  #RegisterForm h3 {
+    padding-top: 5%;
+    text-align: center;
+  }
+  #RegisterForm form {
+    display: flex;
+    flex-direction: column;
+    margin: 8% 10%;
+    gap: 10px;
+  }
   .ExperienceContainer {
     flex-wrap: wrap;
   }

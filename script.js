@@ -15,3 +15,25 @@ document.addEventListener("DOMContentLoaded", function () {
     
   );
 });
+
+
+//-----------------
+
+const slider = document.querySelector('.slider');
+const preBtn = document.querySelector('.pre-btn');
+const nxtBtn = document.querySelector('.nxt-btn');
+
+let counter = 0;
+const size = document.querySelector('.blog-card').clientWidth;
+
+nxtBtn.addEventListener('click', () => {
+  if (counter >= slider.children.length - 1) return;
+  counter++;
+  slider.style.transform = `translateX(${-size * counter}px)`;
+});
+
+preBtn.addEventListener('click', () => {
+  if (counter <= 0) return;
+  counter--;
+  slider.style.transform = `translateX(${-size * counter}px)`;
+});
