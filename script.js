@@ -1,10 +1,14 @@
+//-------------- menu
+
 document.addEventListener("DOMContentLoaded", function () {
-  const mobileMenu = document.querySelector(".mobileMenu");
-  const menuList = document.querySelector(".menu-list");
+  const mobileMenu = document.querySelector(".mobileMenu , .admin-mobile-nav ");
+  const menuList = document.querySelector(".menu-list, .adminNav ");
 
   mobileMenu.addEventListener("click", function () {
     menuList.classList.toggle("active");
     mobileMenu.classList.toggle("active");
+    adminNav.classList.toggle("active");
+    admin - mobile - nav.classList.toggle("active");
   });
 
   document.querySelectorAll(".menu-list").forEach((n) =>
@@ -12,28 +16,48 @@ document.addEventListener("DOMContentLoaded", function () {
       menuList.classList.remove("active");
       mobileMenu.classList.remove("active");
     })
-    
   );
 });
 
+//--------- editor
 
-//-----------------
-
-const slider = document.querySelector('.slider');
-const preBtn = document.querySelector('.pre-btn');
-const nxtBtn = document.querySelector('.nxt-btn');
-
-let counter = 0;
-const size = document.querySelector('.blog-card').clientWidth;
-
-nxtBtn.addEventListener('click', () => {
-  if (counter >= slider.children.length - 1) return;
-  counter++;
-  slider.style.transform = `translateX(${-size * counter}px)`;
+tinymce.init({
+  selector: "textarea#default-editor",
+  height: 300,
+  plugins: [
+    "advlist",
+    "autolink",
+    "link",
+    "image",
+    "lists",
+    "charmap",
+    "prewiew",
+    "anchor",
+    "pagebreak",
+    "searchreplace",
+    "wordcount",
+    "visualblocks",
+    "code",
+    "fullscreen",
+    "insertdatetime",
+    "media",
+    "table",
+    "emoticons",
+    "template",
+    "codesample",
+  ],
+  toolbar:
+    "undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify |" +
+    "bullist numlist outdent indent | link image | print preview media fullscreen | " +
+    "forecolor backcolor emoticons",
+  menu: {
+    favs: {
+      title: "menu",
+      items: "code visualaid | searchreplace | emoticons",
+    },
+  },
+  menubar: "favs file edit view insert format tools table",
+  content_style: "body{font-family:Helvetica,Arial,sans-serif; font-size:16px}",
 });
 
-preBtn.addEventListener('click', () => {
-  if (counter <= 0) return;
-  counter--;
-  slider.style.transform = `translateX(${-size * counter}px)`;
-});
+//-----------------carousel
