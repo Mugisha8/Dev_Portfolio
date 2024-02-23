@@ -240,7 +240,7 @@ span i {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
-  padding: 4% 5%;
+  padding: 4% 8%;
 }
 
 .Project-Card-Wrapper {
@@ -289,7 +289,7 @@ span i {
 .owl-nav .owl-prev {
   position: absolute;
   top: calc(50% - 25px);
-  left: 0;
+  left: 3%;
   opacity: 1;
   font-size: 30px !important;
   z-index: 1;
@@ -299,7 +299,7 @@ span i {
 .owl-nav .owl-next {
   position: absolute;
   top: calc(50% - 25px);
-  right: 0;
+  right: 3%;
   opacity: 1;
   font-size: 30px !important;
   z-index: 1;
@@ -310,12 +310,12 @@ span i {
 
 #blogs h2 {
   text-align: center;
-
   margin: 2% 0%;
 }
 
 .BlogsContainer {
   background-color: white;
+  padding: 4% 13%;
 }
 
 .blog-card {
@@ -327,7 +327,7 @@ span i {
   cursor: pointer;
   background-color: #343d68;
   opacity: 0.5;
-  color: wheat;
+  color: wheat !important;
 }
 
 .blog-card img {
@@ -360,6 +360,10 @@ span i {
 }
 .blog-card {
   box-shadow: 0px 0px 3px 0px rgba(65, 63, 63, 0.517);
+}
+
+#error-message {
+  color: rgb(252, 116, 116);
 }
 
 /*------------- Contact section Start -------------*/
@@ -402,7 +406,9 @@ span i {
   width: 100%;
   padding: 10px;
   border: 0;
+  border-radius: 4px;
   box-shadow: 0px 0px 3px 0px rgb(165, 164, 164);
+  outline: none;
 }
 .ContactForm form textarea {
   height: 7rem;
@@ -416,6 +422,7 @@ span i {
   padding: 10px;
   background-color: var(--secondary-color);
   border: 0;
+  border-radius: 4px;
   color: white;
 }
 .ContactForm form button:hover {
@@ -538,12 +545,12 @@ span i {
   background-color: white;
   margin: 4% 7% 0% 7%;
   width: 500px;
-  height: 24rem;
+  height: 25rem;
   border-radius: 6px;
 }
 
 #RegisterForm h3 {
-  padding-top: 3%;
+  padding-top: 5%;
   text-align: center;
 }
 #RegisterForm p {
@@ -558,7 +565,7 @@ span i {
 #RegisterForm form {
   display: flex;
   flex-direction: column;
-  margin: 6% 10%;
+  margin: 3% 10%;
   gap: 10px;
 }
 

@@ -52,17 +52,55 @@
         </div>
 
         <div class="blog-form">
-          <form action="" method="post">
-            <input type="text" required placeholder="Title" />
+          <form id="myform">
+            <input type="text" id="title" placeholder="Title" />
 
             <textarea name="textarea" id="default-editor"></textarea>
 
-            <input type="file" required />
+            <input id="image" type="file" />
 
-            <button>+ Create Blog</button>
+            <button type="submit">+ Create Blog</button>
+
+            <div id="error-message"></div>
           </form>
         </div>
       </div>
     </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("myform");
+        const errorMessage = document.getElementById("error-message");
+
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          errorMessage.textContent = "";
+
+          const title = document.getElementById("title").value.trim();
+          const blogContent = document
+            .getElementById("default-editor")
+            .value.trim();
+          const blogImage = document.getElementById("image").value.trim();
+
+          if (title === "") {
+            errorMessage.textContent = "* Please enter the blog title";
+            return;
+          }
+
+          if (blogContent === "") {
+            errorMessage.textContent = "* Please enter the blog Content";
+            return;
+          } else if (blogContent.length < 20) {
+            errorMessage.textContent = "* Must type 20 characters atleast";
+            return;
+          }
+
+          if (blogImage === "") {
+            errorMessage.textContent = "* Please attach the blog image";
+            return;
+          }
+        });
+      });
+    </script>
   </body>
 </html>
