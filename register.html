@@ -39,16 +39,82 @@
 
         <h3>Create An Account</h3>
 
-        <form>
-            <input type="text" placeholder="Firstname">
-            <input type="text" placeholder="Lastname">
-            <input type="text" placeholder="Location">
-            <input type="password" placeholder="Password">
-            <button>REGISTER</button>
+        <form id="myform">
+            <input type="text" id="firstname" placeholder="Firstname">
+            <input type="text" id="lastname" placeholder="Lastname">
+            <input type="text" id="email" placeholder="email">
+            <input type="password" id="password" placeholder="Password">
+            <button type="submit">REGISTER</button>
+
+
+            <div id="error-message"></div>
             </form>
             <p>Arleady Have an account? <span><a href="signIn.html">Login</a></span></p>
 
       </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('myform');
+  const errorMessage = document.getElementById('error-message');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    errorMessage.textContent = '';
+
+    const firstname = document.getElementById('firstname').value.trim();
+    const lastname = document.getElementById('lastname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    if(firstname === ''){
+      errorMessage.textContent = '* Please enter your firstname';
+      return;
+    }
+
+    if(lastname === ''){
+      errorMessage.textContent = '* Please enter your lastname';
+      return;
+    }
+
+    if (email === '') {
+      errorMessage.textContent = '* Please enter your email';
+      return;
+    } else if (!isValidEmail(email)) {
+      errorMessage.textContent = '* Please enter a valid email address';
+      return;
+    }
+    else if (email.length > 25) {
+            errorMessage.textContent = '* Email is too long';
+            return;
+    }
+
+    if (password === '') {
+      errorMessage.textContent = '* Password field required please';
+      return;
+      
+    }
+    else if (password.length < 6)
+    {
+errorMessage.textContent = '* Password must be atleast 6 characters';
+return;
+    }
+
+})
+
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+
+})
+
+  </script>
+
+
+
     
 </body>
 </html>

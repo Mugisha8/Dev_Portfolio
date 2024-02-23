@@ -98,22 +98,78 @@
     <div class="blog-comment-container">
         <p>leave a Comment</p>
         <div class="blog-form">
-            <form>
-          
+            <form id="myform">
+
                 <div class="blog-input-group">
-                    <div class="blog-input-box"><input type="text" placeholder="Firstname" required></div>
-                    <div class="blog-input-box"><input type="text" placeholder="Lastname" required></div>
+                    <div class="blog-input-box"><input type="text" id="firstname" placeholder="Firstname" ></div>
+                    <div class="blog-input-box"><input type="text" id="lastname" placeholder="Lastname" ></div>
                 </div>
         
-                <div class="blog-input-box"><input type="text" placeholder="email" required></div>
-                <div class="blog-input-box"><textarea  placeholder="place your message here...." rows="8"></textarea></div>
-                <button>SEND</button>
+                <div class="blog-input-box"><input type="text" id="email" placeholder="email" ></div>
+                <div class="blog-input-box"><textarea id="message" placeholder="place your message here...." rows="8"></textarea></div>
+                <button type="submit">SEND</button>
+                <div id="error-message"></div>
 
                 </form>
+               
         </div>
     </div>
 
       </section>
-    
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('myform');
+  const errorMessage = document.getElementById('error-message');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    errorMessage.textContent = '';
+
+    const firstname = document.getElementById('firstname').value.trim();
+    const lastname = document.getElementById('lastname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (firstname === '') {
+      errorMessage.textContent = '* Please enter your firstname';
+      return;
+    }
+
+    if (lastname === '') {
+      errorMessage.textContent = '* Please enter your lastname';
+      return;
+    }
+
+   
+
+    if (email === '') {
+      errorMessage.textContent = '* Please enter your email';
+      return;
+    } else if (!isValidEmail(email)) {
+      errorMessage.textContent = '* Please enter a valid email address';
+      return;
+    }
+    else if (email.length > 25) {
+            errorMessage.textContent = '* Email is too long';
+            return;
+    }
+
+    if (message === '') {
+      errorMessage.textContent = '* Leave your Message please';
+      return;
+    }
+
+})
+
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+
+        })
+</script>    
 </body>
 </html>

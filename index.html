@@ -254,10 +254,12 @@
   </div>
   <div class="ContactForm">
     <h2>Contact Me</h2>
-    <form>
-      <input type="text" placeholder="Enter Email address" >
-      <textarea placeholder="Enter Message"></textarea>
-      <button>Send Message</button>
+    <form id="myform">
+      <input type="text" id="email" placeholder="Enter Email address" >
+      <textarea id="message" placeholder="Enter Message"></textarea>
+      <button type="submit">Send Message</button>
+
+      <div id="error-message"></div>
       </form>
   </div>
 
@@ -344,6 +346,53 @@ $(document).ready(function(){
     }
   });
 });
+
+
+
+
+
+
+ document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('myform');
+  const errorMessage = document.getElementById('error-message');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    errorMessage.textContent = '';
+
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (email === '') {
+      errorMessage.textContent = '* Please enter your email';
+      return;
+    } else if (!isValidEmail(email)) {
+      errorMessage.textContent = '* Please enter a valid email address';
+      return;
+    }
+    else if (email.length > 25) {
+            errorMessage.textContent = '* Email is too long';
+            return;
+    }
+
+    if (message === '') {
+      errorMessage.textContent = '* Leave your Message please';
+      return;
+    }
+
+})
+
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+
+})
+
+
+
   </script>
   </body>
 </html>
