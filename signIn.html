@@ -46,60 +46,72 @@
            <div id="error-message"></div>
 
             </form>
-            <p><span><a href="register.html">create an account</a></span> || <a href="Dashboard.html">Admin Panel</a> </p>
+            <p>Are you new here? <span><a href="register.html">create an account</a></span> </p>
 
       </section>
 
-   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('myform');
-  const errorMessage = document.getElementById('error-message');
-
-  form.addEventListener('submit', function(event) {
-    event.preventDefault();
-    errorMessage.textContent = '';
-
-   
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value.trim();
-
-  
-
-    if (email === '') {
-      errorMessage.textContent = '* Please enter your email';
-      return;
-    } else if (!isValidEmail(email)) {
-      errorMessage.textContent = '* Please enter a valid email address';
-      return;
-    }
-    else if (email.length > 25) {
-            errorMessage.textContent = '* Email is too long';
-            return;
-    }
-
-    if (password === '') {
-      errorMessage.textContent = '* Password field required please';
-      return;
-      
-    }
-    else if (password.length < 6)
-    {
-errorMessage.textContent = '* Password must be atleast 6 characters';
-return;
-    }
-
-})
-
-
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
-
-
-})
-
-   </script>   
+            const errorMessage = document.getElementById('error-message');
+        
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                errorMessage.textContent = '';
+        
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value.trim();
+        
+                if (email === '') {
+                    errorMessage.textContent = '* Please enter your email';
+                    return;
+                } else if (!isValidEmail(email)) {
+                    errorMessage.textContent = '* Please enter a valid email address';
+                    return;
+                } else if (email.length > 25) {
+                    errorMessage.textContent = '* Email is too long';
+                    return;
+                }
+        
+                if (password === '') {
+                    errorMessage.textContent = '* Password field required please';
+                    return;
+                } else if (password.length < 6) {
+                    errorMessage.textContent = '* Password must be at least 6 characters';
+                    return;
+                }
+        
+                // Retrieve user data from localStorage
+                const users = JSON.parse(localStorage.getItem('accounts')) || [];
+        
+                // Find the user with the provided email
+                const user = users.find(u => u.email === email);
+        
+                if (!user) {
+                    errorMessage.textContent = '* User not found';
+                    return;
+                }
+        
+                if (user.password !== password) {
+                    errorMessage.textContent = '* Incorrect password';
+                    return;
+                }
+        
+                // Redirect based on user role
+                if (user.role === 'admin') {
+                    window.location.href = 'dashboard.html';
+                } else {
+                    window.location.href = 'index.html';
+                }
+            });
+        
+            function isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+        });
+        </script>
+          
     
 </body>
 </html>
