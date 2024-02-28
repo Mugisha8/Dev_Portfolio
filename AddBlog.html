@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="AdminStyle.css" />
-
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -54,13 +53,15 @@
         <div class="blog-form">
           <form id="myform">
             <input type="text" id="title" placeholder="Title" />
-
             <textarea name="textarea" id="default-editor"></textarea>
-
-            <input id="image" type="file" />
-
+            <input id="image" type="file" onchange="previewImage(event)" />
+            <img
+              id="image-preview"
+              src="#"
+              alt="Image Preview"
+              style="display: none; max-width: 200px; margin-top: 10px"
+            />
             <button type="submit">+ Create Blog</button>
-
             <div id="error-message"></div>
           </form>
         </div>
@@ -68,19 +69,47 @@
     </section>
 
     <script>
+      function previewImage(event) {
+        const input = event.target;
+        const preview = document.getElementById("image-preview");
+
+        if (input.files && input.files[0]) {
+          const reader = new FileReader();
+
+          reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.style.display = "block";
+          };
+
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+
       document.addEventListener("DOMContentLoaded", function () {
         const form = document.getElementById("myform");
         const errorMessage = document.getElementById("error-message");
+
+        // Retrieve URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const titleParam = urlParams.get("title");
+        const contentParam = urlParams.get("content");
+        const imageParam = urlParams.get("image");
+
+        // Fill form fields with URL parameter data if they exist
+        if (titleParam && contentParam && imageParam) {
+          document.getElementById("title").value = titleParam;
+          document.getElementById("default-editor").innerHTML = contentParam;
+          document.getElementById("image-preview").src = imageParam;
+        }
 
         form.addEventListener("submit", function (event) {
           event.preventDefault();
           errorMessage.textContent = "";
 
           const title = document.getElementById("title").value.trim();
-          const blogContent = document
-            .getElementById("default-editor")
-            .value.trim();
-          const blogImage = document.getElementById("image").value.trim();
+          const blogContent = tinymce.get("default-editor").getContent().trim();
+          const fileInput = document.getElementById("image");
+          const blogImage = fileInput.files[0]; // Get the selected image file
 
           if (title === "") {
             errorMessage.textContent = "* Please enter the blog title";
@@ -91,14 +120,68 @@
             errorMessage.textContent = "* Please enter the blog Content";
             return;
           } else if (blogContent.length < 20) {
-            errorMessage.textContent = "* Must type 20 characters atleast";
+            errorMessage.textContent = "* Must type 20 characters at least";
             return;
           }
 
-          if (blogImage === "") {
+          if (!blogImage) {
             errorMessage.textContent = "* Please attach the blog image";
             return;
           }
+
+          // Use FileReader to read the selected image file
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const imageURL = e.target.result; // Get the data URL representing the file's data.
+
+            // Get existing blog data from localStorage
+            let blogs = JSON.parse(localStorage.getItem("blogs")) || [];
+
+            if (titleParam && contentParam && imageParam) {
+              // Editing existing blog
+              const editedBlogIndex = blogs.findIndex(
+                (blog) =>
+                  blog.title === titleParam &&
+                  blog.content === contentParam &&
+                  blog.image === imageParam
+              );
+              if (editedBlogIndex !== -1) {
+                // Update the blog
+                blogs[editedBlogIndex] = {
+                  title: title,
+                  content: blogContent,
+                  image: imageURL,
+                };
+              }
+            } else {
+              // Creating new blog
+              // Create an object to store the form data
+              const newBlog = {
+                title: title,
+                content: blogContent,
+                image: imageURL,
+              };
+
+              // Push the new blog to the array of blogs
+              blogs.push(newBlog);
+            }
+
+            const blogsJSON = JSON.stringify(blogs);
+            localStorage.setItem("blogs", blogsJSON);
+
+            document.getElementById("title").value = "";
+            tinymce.get("default-editor").setContent("");
+            fileInput.value = ""; // Reset the file input field
+
+            // Clear image preview
+            document.getElementById("image-preview").src = "#";
+            document.getElementById("image-preview").style.display = "none";
+
+            alert("Blog saved successfully");
+          };
+
+          // Read the selected image file as a data URL
+          reader.readAsDataURL(blogImage);
         });
       });
     </script>

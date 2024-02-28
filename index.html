@@ -380,6 +380,27 @@ $(document).ready(function(){
       return;
     }
 
+
+    const contactSubmission = {
+        email: email,
+        message: message
+      };
+      const contactSubmissions = JSON.parse(localStorage.getItem('contactSubmissions')) || [];
+      contactSubmissions.push(contactSubmission);
+      localStorage.setItem('contactSubmissions', JSON.stringify(contactSubmissions));
+
+      // Clear the form fields after submission
+      document.getElementById('email').value = '';
+      document.getElementById('message').value = '';
+
+      // Show alert message
+      alert('Message submitted successfully!');
+
+
+
+
+
+
 })
 
 
