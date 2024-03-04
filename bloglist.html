@@ -56,75 +56,54 @@
               <th>Content</th>
               <th colspan="2">Action</th>
             </thead>
-            <tbody>
-              <tr>
-                <td class="blog-field-title">
-                  The Future of Blockchain Technology
-                </td>
-                <td><img src="images/robots.png" /></td>
-                <td>
-                  Blockchain technology, originally known for powering
-                  cryptocurrencies like Bitcoin.
-                </td>
-                <td class="edit">
-                  <center><i class="fa-regular fa-pen-to-square"></i></center>
-                </td>
-                <td class="delete">
-                  <center><i class="fa-solid fa-trash"></i></center>
-                </td>
-              </tr>
-              <tr>
-                <td class="blog-field-title">Navigating Cybersecurity</td>
-                <td><img src="images/TechImage.png" /></td>
-
-                <td>
-                  As our lives become increasingly digitized, cybersecurity has
-                  never been more critical.
-                </td>
-                <td class="edit">
-                  <center><i class="fa-regular fa-pen-to-square"></i></center>
-                </td>
-                <td class="delete">
-                  <center><i class="fa-solid fa-trash"></i></center>
-                </td>
-              </tr>
-              <tr>
-                <td class="blog-field-title">
-                  The Impact of 5G on the Internet
-                </td>
-                <td><img src="images/straw.png" /></td>
-
-                <td>
-                  With the advent of 5G networks, the Internet of Things (IoT)
-                  is entering a new era of connectivity and efficiency.
-                </td>
-                <td class="edit">
-                  <center><i class="fa-regular fa-pen-to-square"></i></center>
-                </td>
-                <td class="delete">
-                  <center><i class="fa-solid fa-trash"></i></center>
-                </td>
-              </tr>
-
-              <tr>
-                <td class="blog-field-title">Navigating Cybersecurity</td>
-                <td><img src="images/TechImage.png" /></td>
-
-                <td>
-                  As our lives become increasingly digitized, cybersecurity has
-                  never been more critical.
-                </td>
-                <td class="edit">
-                  <center><i class="fa-regular fa-pen-to-square"></i></center>
-                </td>
-                <td class="delete">
-                  <center><i class="fa-solid fa-trash"></i></center>
-                </td>
-              </tr>
-            </tbody>
+            <tbody></tbody>
           </table>
         </div>
       </div>
     </section>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const blogsJSON = localStorage.getItem("blogs");
+        if (blogsJSON) {
+          const blogs = JSON.parse(blogsJSON);
+          const tableBody = document.querySelector("tbody");
+
+          blogs.forEach((blog) => {
+            const newRow = document.createElement("tr");
+            newRow.innerHTML = `
+              <td class="blog-field-title">${blog.title}</td>
+              <td><img src="${blog.image}" alt="Blog Image" /></td>
+              <td>${blog.content}</td>
+              <td class="edit">
+  <center>
+    <a href="AddBlog.html?title=${encodeURIComponent(
+      blog.title
+    )}&content=${encodeURIComponent(blog.content)}&image=${encodeURIComponent(
+              blog.image
+            )}">
+      <i class="fa-regular fa-pen-to-square"></i>
+    </a>
+  </center>
+</td>
+
+              <td class="delete"><center><i class="fa-solid fa-trash"></i></center></td>
+            `;
+
+            tableBody.appendChild(newRow);
+
+            const deleteIcon = newRow.querySelector(".delete");
+            deleteIcon.addEventListener("click", function () {
+              const index = blogs.findIndex(
+                (item) => item.title === blog.title
+              );
+              blogs.splice(index, 1);
+              localStorage.setItem("blogs", JSON.stringify(blogs));
+
+              newRow.remove();
+            });
+          });
+        }
+      });
+    </script>
   </body>
 </html>

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="AdminStyle.css" />
-
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -54,13 +53,15 @@
         <div class="blog-form">
           <form id="myform">
             <input type="text" id="title" placeholder="Title" />
-
             <textarea name="textarea" id="default-editor"></textarea>
-
-            <input id="image" type="file" />
-
+            <input id="image" type="file" onchange="previewImage(event)" />
+            <img
+              id="image-preview"
+              src="#"
+              alt="Image Preview"
+              style="display: none; max-width: 200px; margin-top: 10px"
+            />
             <button type="submit">+ Create Blog</button>
-
             <div id="error-message"></div>
           </form>
         </div>
@@ -71,16 +72,53 @@
       document.addEventListener("DOMContentLoaded", function () {
         const form = document.getElementById("myform");
         const errorMessage = document.getElementById("error-message");
+        const submitButton = document.querySelector("button[type='submit']");
+        const imagePreview = document.getElementById("image-preview");
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const titleParam = urlParams.get("title");
+        const contentParam = urlParams.get("content");
+        const imageParam = urlParams.get("image");
+
+        if (titleParam && contentParam) {
+          document.getElementById("title").value = titleParam;
+          document.getElementById("default-editor").innerHTML = contentParam;
+          if (imageParam) {
+            imagePreview.src = imageParam;
+            imagePreview.style.display = "block";
+          }
+          submitButton.textContent = "Edit Blog";
+        }
+
+        document
+          .getElementById("image")
+          .addEventListener("change", function (event) {
+            previewImage(event);
+          });
+
+        function previewImage(event) {
+          const fileInput = event.target;
+          const file = fileInput.files[0];
+          const reader = new FileReader();
+
+          reader.onload = function () {
+            imagePreview.src = reader.result;
+            imagePreview.style.display = "block";
+          };
+
+          if (file) {
+            reader.readAsDataURL(file);
+          }
+        }
 
         form.addEventListener("submit", function (event) {
           event.preventDefault();
           errorMessage.textContent = "";
 
           const title = document.getElementById("title").value.trim();
-          const blogContent = document
-            .getElementById("default-editor")
-            .value.trim();
-          const blogImage = document.getElementById("image").value.trim();
+          const blogContent = tinymce.get("default-editor").getContent().trim();
+          const fileInput = document.getElementById("image");
+          const blogImage = fileInput.files[0]; 
 
           if (title === "") {
             errorMessage.textContent = "* Please enter the blog title";
@@ -91,15 +129,64 @@
             errorMessage.textContent = "* Please enter the blog Content";
             return;
           } else if (blogContent.length < 20) {
-            errorMessage.textContent = "* Must type 20 characters atleast";
+            errorMessage.textContent = "* Must type 20 characters at least";
             return;
           }
 
-          if (blogImage === "") {
-            errorMessage.textContent = "* Please attach the blog image";
-            return;
+          let imageURL = imageParam;
+          if (blogImage) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              imageURL = e.target.result; 
+              saveBlog(title, blogContent, imageURL);
+            };
+            reader.readAsDataURL(blogImage);
+          } else {
+            saveBlog(title, blogContent, imageURL);
           }
+
+          fileInput.value = "";
         });
+
+        function saveBlog(title, blogContent, imageURL) {
+          let blogs = JSON.parse(localStorage.getItem("blogs")) || [];
+
+          if (titleParam && contentParam && imageParam) {
+            const editedBlogIndex = blogs.findIndex(
+              (blog) =>
+                blog.title === titleParam &&
+                blog.content === contentParam &&
+                blog.image === imageParam
+            );
+            if (editedBlogIndex !== -1) {
+            
+              blogs[editedBlogIndex] = {
+                title: title,
+                content: blogContent,
+                image: imageURL,
+              };
+            }
+          } else {
+            const newBlog = {
+              title: title,
+              content: blogContent,
+              image: imageURL,
+            };
+
+            blogs.push(newBlog);
+          }
+
+          const blogsJSON = JSON.stringify(blogs);
+          localStorage.setItem("blogs", blogsJSON);
+
+          document.getElementById("title").value = "";
+          tinymce.get("default-editor").setContent("");
+
+          imagePreview.src = "#";
+          imagePreview.style.display = "none";
+
+          alert("Blog saved successfully");
+        }
       });
     </script>
   </body>

@@ -188,58 +188,7 @@
 
     <div class="owl-carousel BlogsContainer">
 
-      
-      
-
-      <div class="blog-card">
-     <a href="blog1.html"> 
-      <img src="images/TechImage.png">
-        <h3>Technology advancement</h3>
-        <p>Technology advances by keeping an eye on the new app designed my meight industries.</p>
-        <div class="blogIcons">
-          <span><i class="fa-solid fa-thumbs-up"></i> 462</span>
-          <span class="views"><i class="fa-solid fa-eye"></i>  320</span>
-        </div></a>
-      </div>
-      
-
-  
-
-      <div class="blog-card">
-        <a href="blog2.html">
-        <img src="images/robots.png">
-        <h3>AI Robots Upgraded</h3>
-        <p>Technology advances by keeping an eye on the new app designed my meight industries.</p>
-        <div class="blogIcons">
-          <span><i class="fa-solid fa-thumbs-up"></i> 712</span>
-          <span class="views"><i class="fa-solid fa-eye"></i>  250</span>
-        </div></a>
-
-      </div>
-
-    <div class="blog-card">
-      <a href="blog1.html">
-        <img src="images/straw.png">
-        <h3>Technology advancement</h3>
-        <p>Technology advances by keeping an eye on the new app designed my meight industries.</p>
-        <div class="blogIcons">
-          <span><i class="fa-solid fa-thumbs-up"></i> 112</span>
-          <span class="views"><i class="fa-solid fa-eye"></i>  250</span>
-        </div></a>
-      </div>
-
-      <div class="blog-card">
-        <a href="blog1.html"> 
-         <img src="images/TechImage.png">
-           <h3>Technology advancement</h3>
-           <p>Technology advances by keeping an eye on the new app designed my meight industries.</p>
-           <div class="blogIcons">
-             <span><i class="fa-solid fa-thumbs-up"></i> 462</span>
-             <span class="views"><i class="fa-solid fa-eye"></i>  320</span>
-           </div></a>
-         </div>
-
-      
+   
 
     </div>
 
@@ -380,6 +329,27 @@ $(document).ready(function(){
       return;
     }
 
+
+    const contactSubmission = {
+        email: email,
+        message: message
+      };
+      const contactSubmissions = JSON.parse(localStorage.getItem('contactSubmissions')) || [];
+      contactSubmissions.push(contactSubmission);
+      localStorage.setItem('contactSubmissions', JSON.stringify(contactSubmissions));
+
+      // Clear the form fields after submission
+      document.getElementById('email').value = '';
+      document.getElementById('message').value = '';
+
+      // Show alert message
+      alert('Message submitted successfully!');
+
+
+
+
+
+
 })
 
 
@@ -394,6 +364,36 @@ function isValidEmail(email) {
 
 
   </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const blogs = JSON.parse(localStorage.getItem('blogs')) || [];
+    const blogContainer = document.querySelector('.BlogsContainer');
+
+    blogs.forEach(function(blog) {
+      const blogCard = document.createElement('div');
+      blogCard.classList.add('blog-card');
+      blogCard.innerHTML = `
+        <a href="blog1.html?blogId=${blog.id}">
+          <img src="${blog.image}">
+          <h3>${blog.title}</h3>
+          <p>${blog.content}</p>
+          <div class="blogIcons">
+            <span><i class="fa-solid fa-thumbs-up"></i> 850 </span>
+            <span class="views"><i class="fa-solid fa-eye"></i> 600</span>
+          </div>
+        </a>
+      `;
+      blogContainer.appendChild(blogCard);
+    });
+
+
+
+    
+  });
+</script>
+
+
   </body>
 </html>
 

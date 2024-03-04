@@ -78,32 +78,56 @@
               <th>Messages</th>
               <th>Action</th>
             </thead>
-            <tbody>
-              <tr>
-                <td>jackishimwe@gmail.com</td>
-                <td>Awesome Portfolio</td>
-                <td class="delete">
-                  <center><i class="fa-solid fa-trash"></i></center>
-                </td>
-              </tr>
-              <tr>
-                <td>darrenmugisha@gmail.com</td>
-                <td>I need you to build a platform for me</td>
-                <td class="delete">
-                  <center><i class="fa-solid fa-trash"></i></center>
-                </td>
-              </tr>
-              <tr>
-                <td>denversamuel@gmail.com</td>
-                <td>Keep it up</td>
-                <td class="delete">
-                  <center><i class="fa-solid fa-trash"></i></center>
-                </td>
-              </tr>
-            </tbody>
+            <tbody></tbody>
           </table>
         </div>
       </div>
     </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Retrieve contact submissions from local storage
+        const contactSubmissions =
+          JSON.parse(localStorage.getItem("contactSubmissions")) || [];
+
+        // Select the table body where contact submissions will be displayed
+        const tableBody = document.querySelector(
+          ".customer-queries-table tbody"
+        );
+
+        // Loop through each contact submission and create table rows to display them
+        contactSubmissions.forEach(function (submission) {
+          const newRow = document.createElement("tr");
+          newRow.innerHTML = `
+            <td>${submission.email}</td>
+            <td>${submission.message}</td>
+            <td class="delete"><center><i class="fa-solid fa-trash"></i></center></td>
+          `;
+          tableBody.appendChild(newRow);
+        });
+
+        // Add event listener to handle deletion of contact submissions
+        tableBody.addEventListener("click", function (event) {
+          if (event.target.classList.contains("fa-trash")) {
+            const rowToDelete = event.target.closest("tr");
+            const emailToDelete =
+              rowToDelete.querySelector("td:first-child").textContent;
+            // Filter out the submission to delete from the contactSubmissions array
+            const updatedSubmissions = contactSubmissions.filter(function (
+              submission
+            ) {
+              return submission.email !== emailToDelete;
+            });
+            // Update the contactSubmissions in the local storage
+            localStorage.setItem(
+              "contactSubmissions",
+              JSON.stringify(updatedSubmissions)
+            );
+            // Remove the row from the table
+            rowToDelete.remove();
+          }
+        });
+      });
+    </script>
   </body>
 </html>

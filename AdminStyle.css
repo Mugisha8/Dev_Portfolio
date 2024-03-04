@@ -115,7 +115,7 @@ body {
 
 .adminNav {
   background-color: var(--secondary-color);
-  height: 100vh;
+  height: 150vh;
   display: flex;
   justify-content: center;
   padding-top: 35%;
