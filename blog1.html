@@ -46,17 +46,12 @@
             </p>
 
             <div class="blog-analytics">
-                <span><i class="fa-solid fa-thumbs-up"></i> <p>203</p> </span>
-                <span >320<p>Views</p> </span>
-                <span ><i class="fa-solid fa-comments"></i> 3<p>Comments</p> </span>
-            
-            </div>
+              <button id="likeButton"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+              <span id="likeCount">0 Likes</span>
+              <span id="commentCount"><i class="fa-solid fa-comments"></i> <span id="commentCountNumber">0 Comments</span></span>
+          </div>
 
             <div class="customer-comments">
-
-                <div class="commenterProfile">
-                    <img src="images/profile2.jpg">
-                </div>
 
                 <div class="commentInfo">
                 <span>Jayden Mugisha</span>
@@ -64,31 +59,8 @@
                 </div>
                 
             </div>
-            <div class="customer-comments">
-
-                <div class="commenterProfile">
-                    <img src="images/profile4.jpg">
-                </div>
-
-                <div class="commentInfo">
-                <span>Keylah Isimbi</span>
-                <p>amazing technology, wish to do this too.</p>
-                </div>
-                
-            </div>
-            <div class="customer-comments">
-
-                <div class="commenterProfile">
-                    <img src="images/profile3.jpg">
-                </div>
-
-                <div class="commentInfo">
-                <span>Darren Mugabo</span>
-                <p>The content is awesome. keep giving us more</p>
-                </div>
-                
-            </div>
-
+           
+           
 
         </div>
         
@@ -101,11 +73,10 @@
             <form id="myform">
 
                 <div class="blog-input-group">
-                    <div class="blog-input-box"><input type="text" id="firstname" placeholder="Firstname" ></div>
-                    <div class="blog-input-box"><input type="text" id="lastname" placeholder="Lastname" ></div>
+                    <div class="blog-input-box"><input type="text" id="firstname" placeholder="Names" ></div>
+                    <div class="blog-input-box"><input type="text" id="email" placeholder="Email" ></div>
                 </div>
         
-                <div class="blog-input-box"><input type="text" id="email" placeholder="email" ></div>
                 <div class="blog-input-box"><textarea id="message" placeholder="place your message here...." rows="8"></textarea></div>
                 <button type="submit">SEND</button>
                 <div id="error-message"></div>
@@ -118,58 +89,122 @@
       </section>
 
       <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('myform');
-  const errorMessage = document.getElementById('error-message');
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('myform');
+    const errorMessage = document.getElementById('error-message');
+    const commentsKey = 'blog_comments'; // Key to access comments in localStorage
+    const commentCountDisplay = document.getElementById('commentCountNumber'); // Display for comment count
+    const likeButton = document.getElementById('likeButton'); // Like button
+    const likeCountDisplay = document.getElementById('likeCount'); // Display for like count
 
-  form.addEventListener('submit', function(event) {
-    event.preventDefault();
-    errorMessage.textContent = '';
+    // Load comments and likes from localStorage when the page loads
+    loadComments();
+    loadLikes();
 
-    const firstname = document.getElementById('firstname').value.trim();
-    const lastname = document.getElementById('lastname').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const message = document.getElementById('message').value.trim();
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        errorMessage.textContent = '';
 
-    if (firstname === '') {
-      errorMessage.textContent = '* Please enter your firstname';
-      return;
-    }
+        const firstname = document.getElementById('firstname').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
 
-    if (lastname === '') {
-      errorMessage.textContent = '* Please enter your lastname';
-      return;
-    }
+        if (firstname === '') {
+            errorMessage.textContent = '* Please enter your names';
+            return;
+        }
 
-   
-
-    if (email === '') {
-      errorMessage.textContent = '* Please enter your email';
-      return;
-    } else if (!isValidEmail(email)) {
-      errorMessage.textContent = '* Please enter a valid email address';
-      return;
-    }
-    else if (email.length > 25) {
+        if (email === '') {
+            errorMessage.textContent = '* Please enter your email';
+            return;
+        } else if (!isValidEmail(email)) {
+            errorMessage.textContent = '* Please enter a valid email address';
+            return;
+        } else if (email.length > 25) {
             errorMessage.textContent = '* Email is too long';
             return;
+        }
+
+        if (message === '') {
+            errorMessage.textContent = '* Leave your Message please';
+            return;
+        }
+
+        const comment = {
+            firstname: firstname,
+            email: email,
+            message: message
+        };
+
+        saveComment(comment);
+
+        form.reset();
+
+        // Update comment count display after submitting a comment
+        loadComments();
+    });
+
+    likeButton.addEventListener('click', function() {
+        let likeCount = parseInt(localStorage.getItem('likeCount')) || 0;
+        let isLiked = likeButton.classList.contains('liked');
+
+        if (isLiked) {
+            likeButton.classList.remove('liked');
+            likeCount--;
+        } else {
+            likeButton.classList.add('liked');
+            likeCount++;
+        }
+
+        likeCountDisplay.textContent = likeCount === 1 ? '1 Like' : `${likeCount} Likes`;
+        localStorage.setItem('likeCount', likeCount);
+    });
+
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
     }
 
-    if (message === '') {
-      errorMessage.textContent = '* Leave your Message please';
-      return;
+    function saveComment(comment) {
+        let comments = JSON.parse(localStorage.getItem(commentsKey)) || [];
+        comments.push(comment);
+        localStorage.setItem(commentsKey, JSON.stringify(comments));
     }
 
-})
+    function loadComments() {
+        const commentsContainer = document.querySelector('.customer-comments');
+        commentsContainer.innerHTML = ''; // Clear previous comments
 
+        let comments = JSON.parse(localStorage.getItem(commentsKey)) || [];
 
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
+        comments.forEach(function(comment) {
+            const commentElement = document.createElement('div');
+            commentElement.classList.add('customer-comment');
 
+            commentElement.innerHTML = `
+                <div class="commentInfo">
+                    <span>${comment.firstname}</span>
+                    <p>${comment.message}</p>
+                </div>
+            `;
 
-        })
-</script>    
+            commentsContainer.appendChild(commentElement);
+        });
+
+        // Update the comment count display
+        commentCountDisplay.textContent = comments.length === 1 ? '1 Comment' : `${comments.length} Comments`;
+    }
+
+    function loadLikes() {
+        let likeCount = parseInt(localStorage.getItem('likeCount')) || 0;
+        likeCountDisplay.textContent = likeCount === 1 ? '1 Like' : `${likeCount} Likes`;
+
+        if (likeCount > 0) {
+            likeButton.classList.add('liked');
+        }
+    }
+});
+
+</script>  
 </body>
 </html>

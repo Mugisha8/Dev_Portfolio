@@ -69,37 +69,46 @@
     </section>
 
     <script>
-      function previewImage(event) {
-        const input = event.target;
-        const preview = document.getElementById("image-preview");
-
-        if (input.files && input.files[0]) {
-          const reader = new FileReader();
-
-          reader.onload = function (e) {
-            preview.src = e.target.result;
-            preview.style.display = "block";
-          };
-
-          reader.readAsDataURL(input.files[0]);
-        }
-      }
-
       document.addEventListener("DOMContentLoaded", function () {
         const form = document.getElementById("myform");
         const errorMessage = document.getElementById("error-message");
+        const submitButton = document.querySelector("button[type='submit']");
+        const imagePreview = document.getElementById("image-preview");
 
-        // Retrieve URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const titleParam = urlParams.get("title");
         const contentParam = urlParams.get("content");
         const imageParam = urlParams.get("image");
 
-        // Fill form fields with URL parameter data if they exist
-        if (titleParam && contentParam && imageParam) {
+        if (titleParam && contentParam) {
           document.getElementById("title").value = titleParam;
           document.getElementById("default-editor").innerHTML = contentParam;
-          document.getElementById("image-preview").src = imageParam;
+          if (imageParam) {
+            imagePreview.src = imageParam;
+            imagePreview.style.display = "block";
+          }
+          submitButton.textContent = "Edit Blog";
+        }
+
+        document
+          .getElementById("image")
+          .addEventListener("change", function (event) {
+            previewImage(event);
+          });
+
+        function previewImage(event) {
+          const fileInput = event.target;
+          const file = fileInput.files[0];
+          const reader = new FileReader();
+
+          reader.onload = function () {
+            imagePreview.src = reader.result;
+            imagePreview.style.display = "block";
+          };
+
+          if (file) {
+            reader.readAsDataURL(file);
+          }
         }
 
         form.addEventListener("submit", function (event) {
@@ -109,7 +118,7 @@
           const title = document.getElementById("title").value.trim();
           const blogContent = tinymce.get("default-editor").getContent().trim();
           const fileInput = document.getElementById("image");
-          const blogImage = fileInput.files[0]; // Get the selected image file
+          const blogImage = fileInput.files[0]; 
 
           if (title === "") {
             errorMessage.textContent = "* Please enter the blog title";
@@ -124,65 +133,60 @@
             return;
           }
 
-          if (!blogImage) {
-            errorMessage.textContent = "* Please attach the blog image";
-            return;
+          let imageURL = imageParam;
+          if (blogImage) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              imageURL = e.target.result; 
+              saveBlog(title, blogContent, imageURL);
+            };
+            reader.readAsDataURL(blogImage);
+          } else {
+            saveBlog(title, blogContent, imageURL);
           }
 
-          // Use FileReader to read the selected image file
-          const reader = new FileReader();
-          reader.onload = function (e) {
-            const imageURL = e.target.result; // Get the data URL representing the file's data.
+          fileInput.value = "";
+        });
 
-            // Get existing blog data from localStorage
-            let blogs = JSON.parse(localStorage.getItem("blogs")) || [];
+        function saveBlog(title, blogContent, imageURL) {
+          let blogs = JSON.parse(localStorage.getItem("blogs")) || [];
 
-            if (titleParam && contentParam && imageParam) {
-              // Editing existing blog
-              const editedBlogIndex = blogs.findIndex(
-                (blog) =>
-                  blog.title === titleParam &&
-                  blog.content === contentParam &&
-                  blog.image === imageParam
-              );
-              if (editedBlogIndex !== -1) {
-                // Update the blog
-                blogs[editedBlogIndex] = {
-                  title: title,
-                  content: blogContent,
-                  image: imageURL,
-                };
-              }
-            } else {
-              // Creating new blog
-              // Create an object to store the form data
-              const newBlog = {
+          if (titleParam && contentParam && imageParam) {
+            const editedBlogIndex = blogs.findIndex(
+              (blog) =>
+                blog.title === titleParam &&
+                blog.content === contentParam &&
+                blog.image === imageParam
+            );
+            if (editedBlogIndex !== -1) {
+            
+              blogs[editedBlogIndex] = {
                 title: title,
                 content: blogContent,
                 image: imageURL,
               };
-
-              // Push the new blog to the array of blogs
-              blogs.push(newBlog);
             }
+          } else {
+            const newBlog = {
+              title: title,
+              content: blogContent,
+              image: imageURL,
+            };
 
-            const blogsJSON = JSON.stringify(blogs);
-            localStorage.setItem("blogs", blogsJSON);
+            blogs.push(newBlog);
+          }
 
-            document.getElementById("title").value = "";
-            tinymce.get("default-editor").setContent("");
-            fileInput.value = ""; // Reset the file input field
+          const blogsJSON = JSON.stringify(blogs);
+          localStorage.setItem("blogs", blogsJSON);
 
-            // Clear image preview
-            document.getElementById("image-preview").src = "#";
-            document.getElementById("image-preview").style.display = "none";
+          document.getElementById("title").value = "";
+          tinymce.get("default-editor").setContent("");
 
-            alert("Blog saved successfully");
-          };
+          imagePreview.src = "#";
+          imagePreview.style.display = "none";
 
-          // Read the selected image file as a data URL
-          reader.readAsDataURL(blogImage);
-        });
+          alert("Blog saved successfully");
+        }
       });
     </script>
   </body>
